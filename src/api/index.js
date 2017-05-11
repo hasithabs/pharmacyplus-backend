@@ -1,4 +1,9 @@
 import { Router } from 'express'
+import product from './product'
+import drugcategory from './drugcategory'
+import drugdosage from './drugdosage'
+import drugfrequency from './drugfrequency'
+import stock from './stock'
 
 const router = new Router()
 
@@ -25,5 +30,11 @@ const router = new Router()
  * @apiParam {String[]} [sort=-createdAt] Order of returned items.
  * @apiParam {String[]} [fields] Fields to be returned.
  */
+
+router.use('/product', product)
+router.use('/drugcategory', drugcategory)
+router.use('/drugdosage', drugdosage)
+router.use('/drugfrequency', drugfrequency)
+router.use('/stock', stock)
 
 export default router
