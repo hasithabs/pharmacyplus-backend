@@ -10,56 +10,58 @@ var errorMsg = "";
 
 /* GET ALL DRUGCATEGORYS */
 router.get('/', function(req, res, next) {
-  Drugcategory.find(function (err, products) {
+  Drugcategory.find(function (err, results) {
     if (err) return next(err);
-    res.json({status: 200, content: products});
+    res.json({status: 200, content: results});
   });
 });
 
 /* GET SINGLE DRUGCATEGORY BY ID */
 router.get('/:id', function(req, res, next) {
-  Drugcategory.findById(req.params.id, function (err, post) {
+  Drugcategory.find({id: req.params.id}, function (err, results) {
     if (err) {
       res.status(400).json({status: 400, error: "invalid id - " + req.params.id});
       return next(err);
     }
-    res.json({status: 200, content: post});
+    res.json({status: 200, content: results});
   });
 });
 
 /* SAVE DRUGCATEGORY */
 router.post('/', function(req, res, next) {
-  Drugcategory.create(req.body, function (err, post) {
-    if (err) {
-      for (var prop in err.errors) {
-        if (err.errors.hasOwnProperty(prop)) {
-          errorMsg += err.errors[prop] + " ";
+  Drugcategory.findOne().sort({id:-1}).exec(function (err, resultMaxId) {
+    req.body.id = resultMaxId.id + 1;
+    Drugcategory.create(req.body, function (err, results) {
+      if (err) {
+        for (var prop in err.errors) {
+          if (err.errors.hasOwnProperty(prop)) {
+            errorMsg += err.errors[prop] + " ";
+          }
         }
+        res.status(400).json({error: errorMsg});
+        return next(err);
       }
-      res.status(400).json({error: errorMsg});
-      return next(err);
-    }
-    res.json({status: 200, content: post});
+      res.json({status: 200, content: results});
+    });
   });
 });
 
 /* UPDATE DRUGCATEGORY */
 router.put('/:id', function(req, res, next) {
-  Drugcategory.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Drugcategory.findOneAndUpdate({id: req.params.id}, req.body, function (err, results) {
     if (err) {
-      res.status(232).json(err);
-      // res.status(400).json({status: 400, error: "invalid id - " + req.params.id});
+      res.status(400).json({status: 400, error: "invalid id - " + req.params.id});
       return next(err);
     }
-    res.json({status: 200, content: post});
+    res.json({status: 200, content: results});
   });
 });
 
 /* DELETE DRUGCATEGORY */
 router.delete('/:id', function(req, res, next) {
-  Drugcategory.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Drugcategory.findOneAndRemove({id: req.params.id}, req.body, function (err, results) {
     if (err) return next(err);
-    res.json({status: 200, content: post});
+    res.json({status: 200, content: results});
   });
 });
 

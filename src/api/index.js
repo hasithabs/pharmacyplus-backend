@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import product from './product'
+
 import drugcategory from './drugcategory'
 import drugdosage from './drugdosage'
 import drugfrequency from './drugfrequency'
@@ -31,7 +31,6 @@ const router = new Router()
  * @apiParam {String[]} [fields] Fields to be returned.
  */
 
-router.use('/product', product)
 router.use('/drugcategory', drugcategory)
 router.use('/drugdosage', drugdosage)
 router.use('/drugfrequency', drugfrequency)
