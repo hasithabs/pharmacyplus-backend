@@ -15,65 +15,10 @@ const router = new Router()
 
 var errorMsg = "";
 
-var pdf = require('html-pdf');
-var options = {format: 'Letter'};
-function toPDF(items) {
-  console.log("called");
-  exports.Topdf = function (req, res) {
-    console.log("inside 11");
-   var info = {
-
-     "Company": "ABC",
-     "Team": "JsonNode",
-     "Number of members": 4,
-     "Time to finish": "1 day"
-   }
-   res.render('/Hasitha/Hasi/pharmacyplus_frontend/src/app/stock/template/stock-list.html', {
-    info: info,
-  }, function (err, HTML) {
-    pdf.create(HTML, options).toFile('./employee.pdf', function (err, result) {
-      console.log("created");
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      }
-    })
-  })
- }
-}
-
-var Topdf = function (req, res) {
-    console.log("inside 11");
-   var info = {
-
-     "Company": "ABC",
-     "Team": "JsonNode",
-     "Number of members": 4,
-     "Time to finish": "1 day"
-   }
-   res.render('/Hasitha/Hasi/pharmacyplus_frontend/src/app/stock/template/stock-list.html', {
-    info: info,
-  }, function (err, HTML) {
-    pdf.create(HTML, options).toFile('./employee.pdf', function (err, result) {
-      console.log("created");
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      }
-    })
-  })
- }
-
 /* GET ALL DRUGS */
 router.get('/', function(req, res, next) {
   Drug.find(function (err, results) {
     if (err) return next(err);
-
-    // toPDF(results);
-    // Topdf(results);
-
     res.json({status: 200, content: results});
   });
 });
