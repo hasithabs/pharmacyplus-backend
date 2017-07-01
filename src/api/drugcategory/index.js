@@ -30,7 +30,12 @@ router.get('/:id', function(req, res, next) {
 /* SAVE DRUGCATEGORY */
 router.post('/', function(req, res, next) {
   Drugcategory.findOne().sort({id:-1}).exec(function (err, resultMaxId) {
-    req.body.id = resultMaxId.id + 1;
+    if (resultMaxId == null || resultMaxId.length == 0) {
+      req.body.id = 1;
+    } else {
+      req.body.id = resultMaxId.id + 1;
+    }
+
     Drugcategory.create(req.body, function (err, results) {
       if (err) {
         for (var prop in err.errors) {
@@ -41,7 +46,7 @@ router.post('/', function(req, res, next) {
         res.status(400).json({error: errorMsg});
         return next(err);
       }
-      res.json({status: 200, content: results});
+      res.json({status: 201, content: results});
     });
   });
 });

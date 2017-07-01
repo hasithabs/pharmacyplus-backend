@@ -30,7 +30,12 @@ router.get('/:id', function(req, res, next) {
 /* SAVE DRUGFREQUENCY */
 router.post('/', function(req, res, next) {
   Drugfrequency.findOne().sort({id:-1}).exec(function (err, resultMaxId) {
-    req.body.id = resultMaxId.id + 1;
+    if (resultMaxId == null || resultMaxId.length == 0) {
+      req.body.id = 1;
+    } else {
+      req.body.id = resultMaxId.id + 1;
+    }
+
     Drugfrequency.create(req.body, function (err, post) {
       if (err) {
         for (var prop in err.errors) {

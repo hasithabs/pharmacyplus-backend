@@ -4,6 +4,7 @@ import drugcategory from './drugcategory'
 import drugdosage from './drugdosage'
 import drugfrequency from './drugfrequency'
 import stock from './stock'
+import notification from './notification'
 
 const router = new Router()
 
@@ -35,5 +36,6 @@ router.use('/drugcategory', drugcategory)
 router.use('/drugdosage', drugdosage)
 router.use('/drugfrequency', drugfrequency)
 router.use('/stock', stock)
+router.use('/notification', notification)
 
 export default router

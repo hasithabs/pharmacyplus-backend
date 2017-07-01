@@ -11,8 +11,9 @@ var DrugSchema = new mongoose.Schema({
   remarks: { type: String },
   dangerlevel: { type: Number, required: true },
   reorderlevel: { type: Number, required: true },
-  dosage: { type: Object, required: true },
-  frequency: { type: Object, required: true },
+  weight: { type: String, required: true },
+  // dosage: { type: Object, required: true },
+  // frequency: { type: Object, required: true },
   created_at: Date,
   updated_at: Date
 }, { versionKey: false });

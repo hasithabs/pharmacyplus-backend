@@ -30,7 +30,12 @@ router.get('/:id', function(req, res, next) {
 /* SAVE DRUGDOSAGE */
 router.post('/', function(req, res, next) {
   Drugdosage.findOne().sort({id:-1}).exec(function (err, resultMaxId) {
-    req.body.id = resultMaxId.id + 1;
+    if (resultMaxId == null || resultMaxId.length == 0) {
+      req.body.id = 1;
+    } else {
+      req.body.id = resultMaxId.id + 1;
+    }
+
     Drugdosage.create(req.body, function (err, results) {
       if (err) {
         for (var prop in err.errors) {

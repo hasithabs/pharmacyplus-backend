@@ -52,6 +52,7 @@
     "compression": "^1.6.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
+    "html-pdf": "^2.1.0",
     "lodash": "^4.13.1",
     "mongoose": "^4.4.19",
     "mongoose-create-unique": "^0.4.1",
