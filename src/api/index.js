@@ -6,6 +6,9 @@ import drugfrequency from './drugfrequency'
 import stock from './stock'
 import batch_handle from './batch_handle'
 import notification from './notification'
+import prescription from './prescription'
+import prescriptiontimes from './prescriptiontimes'
+import prescriptiondurations from './prescriptiondurations'
 
 const router = new Router()
 
@@ -39,5 +42,8 @@ router.use('/drugfrequency', drugfrequency)
 router.use('/stock', stock)
 router.use('/batches', batch_handle)
 router.use('/notification', notification)
+router.use('/prescription', prescription)
+router.use('/prescriptiontimes', prescriptiontimes)
+router.use('/prescriptiondurations', prescriptiondurations)
 
 export default router
