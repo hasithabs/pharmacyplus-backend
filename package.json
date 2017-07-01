@@ -52,6 +52,7 @@
     "compression": "^1.6.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
+    "html-pdf": "^2.1.0",
     "lodash": "^4.13.1",
     "mongoose": "^4.4.19",
     "mongoose-create-unique": "^0.4.1",
@@ -59,5 +60,6 @@
     "morgan": "^1.7.0",
     "querymen": "^2.0.0",
     "request": "^2.74.0",
-    "request-promise": "^4.1.1"  }
+    "request-promise": "^4.1.1"
+  }
 }
