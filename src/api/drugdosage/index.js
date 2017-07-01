@@ -10,56 +10,63 @@ var errorMsg = "";
 
 /* GET ALL DRUGDOSAGES */
 router.get('/', function(req, res, next) {
-  Drugdosage.find(function (err, products) {
+  Drugdosage.find(function (err, results) {
     if (err) return next(err);
-    res.json({status: 200, content: products});
+    res.json({status: 200, content: results});
   });
 });
 
 /* GET SINGLE DRUGDOSAGE BY ID */
 router.get('/:id', function(req, res, next) {
-  Drugdosage.findById(req.params.id, function (err, post) {
+  Drugdosage.findOne({id: req.params.id}, function (err, results) {
     if (err) {
       res.status(400).json({status: 400, error: "invalid id - " + req.params.id});
       return next(err);
     }
-    res.json({status: 200, content: post});
+    res.json({status: 200, content: results});
   });
 });
 
 /* SAVE DRUGDOSAGE */
 router.post('/', function(req, res, next) {
-  Drugdosage.create(req.body, function (err, post) {
-    if (err) {
-      for (var prop in err.errors) {
-        if (err.errors.hasOwnProperty(prop)) {
-          errorMsg += err.errors[prop] + " ";
-        }
-      }
-      res.status(400).json({error: errorMsg});
-      return next(err);
+  Drugdosage.findOne().sort({id:-1}).exec(function (err, resultMaxId) {
+    if (resultMaxId == null || resultMaxId.length == 0) {
+      req.body.id = 1;
+    } else {
+      req.body.id = resultMaxId.id + 1;
     }
-    res.json({status: 200, content: post});
+
+    Drugdosage.create(req.body, function (err, results) {
+      if (err) {
+        for (var prop in err.errors) {
+          if (err.errors.hasOwnProperty(prop)) {
+            errorMsg += err.errors[prop] + " ";
+          }
+        }
+        res.status(400).json({error: errorMsg});
+        return next(err);
+      }
+      res.json({status: 200, content: results});
+    });
   });
 });
 
 /* UPDATE DRUGDOSAGE */
 router.put('/:id', function(req, res, next) {
-  Drugdosage.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Drugdosage.findOneAndUpdate({id: req.params.id}, req.body, function (err, results) {
     if (err) {
-      res.status(232).json(err);
-      // res.status(400).json({status: 400, error: "invalid id - " + req.params.id});
+      res.status(400).json({status: 400, error: "invalid id - " + req.params.id});
       return next(err);
     }
-    res.json({status: 200, content: post});
+    res.json({status: 200, content: results});
   });
 });
 
 /* DELETE DRUGDOSAGE */
 router.delete('/:id', function(req, res, next) {
-  Drugdosage.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Drugdosage.findOneAndRemove({id: req.params.id}, req.body, function (err, results) {
     if (err) return next(err);
-    res.json({status: 200, content: post});
+    res.json({status: 200, content: results});
   });
 });
 
