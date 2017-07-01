@@ -7,6 +7,7 @@ import stock from './stock'
 import prescription from './prescription'
 import prescriptiontimes from './prescriptiontimes'
 import prescriptiondurations from './prescriptiondurations'
+import orders from './orders'
 
 const router = new Router()
 
@@ -42,5 +43,6 @@ router.use('/stock', stock)
 router.use('/prescription', prescription)
 router.use('/prescriptiontimes', prescriptiontimes)
 router.use('/prescriptiondurations', prescriptiondurations)
+router.use('/orders', orders)
 
 export default router
