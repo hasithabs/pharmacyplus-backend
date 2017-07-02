@@ -9,6 +9,7 @@ import notification from './notification'
 import prescription from './prescription'
 import prescriptiontimes from './prescriptiontimes'
 import prescriptiondurations from './prescriptiondurations'
+import orders from './orders'
 
 const router = new Router()
 
@@ -45,5 +46,6 @@ router.use('/notification', notification)
 router.use('/prescription', prescription)
 router.use('/prescriptiontimes', prescriptiontimes)
 router.use('/prescriptiondurations', prescriptiondurations)
+router.use('/orders', orders)
 
 export default router
